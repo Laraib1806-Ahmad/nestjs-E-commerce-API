@@ -15,12 +15,7 @@ import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 import { Exclude, Transform } from 'class-transformer';
 import { RoleType } from '../../constants/role-type';
 export type UserDocument = User & Document;
-@Schema({
-  toJSON: {
-    getters: true,
-    virtuals: true,
-  },
-})
+
 export class User {
   id: string;
 

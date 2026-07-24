@@ -11,10 +11,16 @@ import { AuthModule } from './modules/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './guards/auth.guard';
 import { CaslModule } from './casl/casl.module';
+import { CustomersModule } from './modules/customers/customers.module';
+import { ProductsModule } from './modules/products/products.module';
+import { OrdersModule } from './modules/orders/orders.module';
 
 @Module({
   imports: [
     UserModule,
+    CustomersModule,
+    ProductsModule,
+    OrdersModule,
     ConfigurationModule,
     ConfigModule.forRoot({
       isGlobal: true,
