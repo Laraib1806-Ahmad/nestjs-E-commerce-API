@@ -9,7 +9,7 @@ import { COASeeder } from './seeder/coa.seeder';
 
 seeder({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/game-of-thrones'),
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/boiler-plate'),
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: Role.name, schema: RoleSchema },
