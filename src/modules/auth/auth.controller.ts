@@ -15,6 +15,7 @@ import { User } from '../user/user.schema';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 import { TokenPayloadDto } from './dto/TokenPayloadDto';
+import { RegisterDto } from './dto/register.dto';
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
@@ -36,12 +37,11 @@ export class AuthController {
     return token;
   }
 
-  @Public()
+  @Auth(Action.Manage, 'User')
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
-  @ApiOkResponse({ type: User, description: 'Successfully Registered' })
-  async userRegister(@Body() userRegisterDto: User): Promise<User> {
-    return await this.userService.createUser(userRegisterDto);
+  async userRegister(@Body() registerDto: RegisterDto): Promise<User> {
+    return await this.userService.createUser(registerDto);
   }
 
   @Version('1')

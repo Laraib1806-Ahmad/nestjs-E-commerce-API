@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+import * as bcrypt from 'bcryptjs';
 
 import type { Optional } from '../types';
 
@@ -7,8 +7,8 @@ import type { Optional } from '../types';
  * @param {string} password
  * @returns {string}
  */
-export function generateHash(password: string): string {
-  return bcrypt.hashSync(password, 10);
+export async function generateHash(password: string): Promise<string> {
+  return await bcrypt.hash(password, 10);
 }
 
 /**

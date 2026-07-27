@@ -16,6 +16,7 @@ import { Exclude, Transform } from 'class-transformer';
 import { RoleType } from '../../constants/role-type';
 export type UserDocument = User & Document;
 
+@Schema()
 export class User {
   id: string;
 
@@ -74,7 +75,7 @@ const UserSchema = SchemaFactory.createForClass(User);
 
 // Hooks
 UserSchema.pre<UserDocument>('save', async function (next) {
-  this.password = generateHash(this.password);
+  this.password = await generateHash(this.password);
   next();
 });
 

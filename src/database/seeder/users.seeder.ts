@@ -25,6 +25,6 @@ export class UsersSeeder implements Seeder {
   }
 
   async drop(): Promise<any> {
-    //return this.user.deleteMany({});
+    return this.user.deleteMany({});
   }
 }

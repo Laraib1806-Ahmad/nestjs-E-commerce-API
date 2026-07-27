@@ -5,7 +5,8 @@ import { User, UserDocument, UserSchema } from './user.schema';
 import { PageOptionsDto } from '../../common/dto/page-options.dto';
 import { ResponseCode } from '../../exceptions/index';
 import type { Optional } from '../../types';
-
+import { RegisterDto } from '../auth/dto/register.dto';
+import { RoleType } from '../../constants/role-type';
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
@@ -42,8 +43,11 @@ export class UserService {
    *
    *
    */
-  async createUser(userRegisterDto: User): Promise<UserDocument> {
-    const create: UserDocument = new this.userModel(userRegisterDto);
+  async createUser(userRegisterDto: RegisterDto): Promise<UserDocument> {
+    const create: UserDocument = new this.userModel({
+      ...userRegisterDto,
+      role: userRegisterDto.role || RoleType.USER,
+    });
     return await create.save().catch((err) => {
       throw new HttpException(err.message, ResponseCode.BAD_REQUEST);
     });

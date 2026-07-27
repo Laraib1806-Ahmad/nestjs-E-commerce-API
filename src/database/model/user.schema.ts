@@ -14,6 +14,7 @@ import {
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 import { Exclude, Transform } from 'class-transformer';
 import { RoleType } from '../../constants/role-type';
+
 export type UserDocument = User & Document;
 @Schema({
   toJSON: {
@@ -75,11 +76,12 @@ export class User {
   role: string;
 }
 
-const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(User);
 
 // Hooks
 UserSchema.pre<UserDocument>('save', async function (next) {
-  this.password = generateHash(this.password);
+  if (this.isModified('password')) {
+    this.password = await generateHash(this.password);
+  }
   next();
 });
-export { UserSchema };
